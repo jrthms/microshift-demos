@@ -20,10 +20,6 @@ version = "*"
 # configuration management
 
 [[packages]]
-name = "transmission-agent"
-version = "*"
-
-[[packages]]
 name = "git"
 version = "*"
 
@@ -59,4 +55,4 @@ version = "*"
 [customizations]
 
 [customizations.services]
-enabled = ["transmission.timer", "microshift"]
+enabled = ["microshift"]
