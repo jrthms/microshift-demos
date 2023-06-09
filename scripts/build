@@ -82,10 +82,10 @@ waitfor_image() {
     local tstart=$(date +%s)
     echo "$(date +'%Y-%m-%d %H:%M:%S') STARTED"
 
-    local status=$(sudo composer-cli compose info --json "${uuid}" | jq -r '.body.queue_status')
+    local status=$(sudo composer-cli compose info --json "${uuid}" | jq -r '.[] | .body.queue_status')
     while [ "${status}" =  RUNNING ] || [ "${status}" =  WAITING ]; do
         sleep 10
-        status=$(sudo composer-cli compose info --json "${uuid}" | jq -r '.body.queue_status')
+        status=$(sudo composer-cli compose info --json "${uuid}" | jq -r '.[] | .body.queue_status')
         echo -en "$(date +'%Y-%m-%d %H:%M:%S') ${status}\r"
     done
 
@@ -128,16 +128,16 @@ build_image() {
 
         title "Building ${image_type} for ${blueprint} v${version}, parent ${parent_blueprint} v${parent_version}"
         result=$(sudo composer-cli compose start-ostree --json --ref "${OSTREE_REF}" --url http://localhost:8080/repo/ "${blueprint}" "${image_type}") || true
-        buildid=$(jq -r '.body.build_id' <<< "${result}")
+        buildid=$(jq -r '.[] | .body.build_id' <<< "${result}")
         if [ "${buildid}" = "null" ]; then
-            fatal "Error starting compose for ${blueprint}: $(jq -r '.body.errors' <<< "${result}")"
+            fatal "Error starting compose for ${blueprint}: $(jq -r '.[] | .body.errors' <<< "${result}")"
         fi
     else
         title "Building ${image_type} for ${blueprint} v${version}"
         result=$(sudo composer-cli compose start-ostree --json --ref "${OSTREE_REF}" "${blueprint}" "${image_type}") || true
-        buildid=$(jq -r '.body.build_id' <<< "${result}")
+        buildid=$(jq -r '.[] | .body.build_id' <<< "${result}")
         if [ "${buildid}" = "null" ]; then
-            fatal "Error starting compose for ${blueprint}: $(jq -r '.body.errors' <<< "${result}")"
+            fatal "Error starting compose for ${blueprint}: $(jq -r '.[] | .body.errors' <<< "${result}")"
         fi
     fi
 
@@ -149,8 +149,8 @@ build_image() {
 
 
 # Verify the MicroShift RPMs have been mirrored to disk
-result=$(sudo composer-cli sources list --json | jq '.body.sources | index("microshift-local")')
-[ "${result}" = null ] && fatal "Did not find local mirror of MicroShift RPMs. Did you run ./scripts/mirror-repos ?"
+#result=$(sudo composer-cli sources list --json | jq '.[] | .body.sources | index("microshift-local")')
+#[ "${result}" = null ] && fatal "Did not find local mirror of MicroShift RPMs. Did you run ./scripts/mirror-repos ?"
 
 # Copy the pull secret to osbuild worker's config dir (in case containers are embedded into blueprint)
 sudo mkdir -p /etc/osbuild-worker
