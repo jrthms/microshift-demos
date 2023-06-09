@@ -8,7 +8,7 @@ Note the demo is deliberately low-level, walking through how to build OS images 
 
 Follow the instructions for [building demo images on a RHEL machine](https://github.com/redhat-et/microshift-demos/tree/main/README.md) up to the point of having mirrored the repos, but do not build the `ostree-demo` artefacts yet.
 
-For this demo, you also need a GitHub repo from which you will configure the RHEL edge device running MicroShift via GitOps. Fork the demo's GitOps repo https://github.com/redhat-et/microshift-config into your own org and define the GITOPS_REPO environment variable accordingly:
+For this demo, you also need a GitHub repo from which you will configure the RHEL edge device running MicroShift via GitOps. Fork the demo's GitOps repo https://github.com/jrthms/microshift-config into your own org and define the GITOPS_REPO environment variable accordingly:
 
     export GITOPS_REPO="https://github.com/MY_ORG/microshift-config"
 
