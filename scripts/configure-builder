@@ -15,12 +15,8 @@ DISTRO_VERSION_MINOR=${BASH_REMATCH[2]}
 
 # Verify we are on a supported distro.
 case "${DISTRO}-${DISTRO_VERSION_MAJOR}" in
-    rhel-8)
-        [ "${DISTRO_VERSION_MINOR}" -lt 7 ] && fatal "RHEL8 version must be >= 8.7 (have: ${DISTRO_VERSION})."
-        ;;
-
     rhel-9)
-        [ "${DISTRO_VERSION_MINOR}" -lt 1 ] && fatal "RHEL9 version must be >= 9.1 (have: ${DISTRO_VERSION})."
+        [ "${DISTRO_VERSION_MINOR}" -lt 1 ] && fatal "RHEL9 version must be >= 9.2 (have: ${DISTRO_VERSION})."
         ;;
 
     *)
@@ -28,18 +24,18 @@ case "${DISTRO}-${DISTRO_VERSION_MAJOR}" in
         ;;
 esac
 
-title "Installing experimental 'ostree' version (with support for embedding containers)"
+#title "Installing experimental 'ostree' version (with support for embedding containers)"
 # Remove original ostree packages
-LIST2REMOVE=$(rpm -qa | grep -E '^ostree' || true)
-[ -n "${LIST2REMOVE}" ] && sudo dnf remove -y ${LIST2REMOVE}
+#LIST2REMOVE=$(rpm -qa | grep -E '^ostree' || true)
+#[ -n "${LIST2REMOVE}" ] && sudo dnf remove -y ${LIST2REMOVE}
 
 # Clean-up the old osbuild jobs and state to avoid incompatibilities between versions
-sudo rm -rf /var/lib/osbuild-composer || true
-sudo rm -rf /var/cache/{osbuild-composer,osbuild-worker} || true
+#sudo rm -rf /var/lib/osbuild-composer || true
+#sudo rm -rf /var/cache/{osbuild-composer,osbuild-worker} || true
 
 # Add the repo for the experimental ostree packages (they'll be installed with osbuild)
-sudo curl --location --output /etc/yum.repos.d/walters-ostreerhel8-centos-stream-8.repo \
-    https://copr.fedorainfracloud.org/coprs/walters/ostreerhel8/repo/centos-stream-8/walters-ostreerhel8-centos-stream-8.repo
+#sudo curl --location --output /etc/yum.repos.d/walters-ostreerhel8-centos-stream-8.repo \
+#    https://copr.fedorainfracloud.org/coprs/walters/ostreerhel8/repo/centos-stream-8/walters-ostreerhel8-centos-stream-8.repo
 
 title "Installing ImageBuilder tools"
 sudo dnf install -y \
