@@ -210,30 +210,4 @@ After a minute or so, you should be able to see the cluster running:
     sudo cat /var/lib/microshift/resources/kubeadmin/kubeconfig > ~/.kube/config
     oc get all -A
 
-### Deploying workloads, connecting to Advanced Cluster Manager
 
-For security reasons, production systems should not allow remote access via SSH or Kube API (e.g. `kubectl` or `oc`). Instead, you should use a device management agent of your choice to pull updates from your management system and apply them locally, for example to drop your workload's manifests into `/etc/microshift/manifests` with a `kustomization.yaml` and restart the MicroShift service.
-
-For this demo, we'll use [Transmission](https://github.com/redhat-et/transmission) agent as lightweight way of configuring the devices using GitOps. Note the blueprint v0.0.3 already added this agent. On the VM, check that Transmission service is running:
-
-    sudo systemctl status transmission
-
-You'll also notice a journal entry like
-
-    Mar 09 07:45:53 edge transmission[2505790]: 2022-03-09 07:45:53,102 INFO: Running update, URL is https://github.com/redhat-et/microshift-config?ref=89b0aea8-0ec5-e9e0-5644-0cd55b835532.
-
-and on the login prompt on the VM's console you'll find the same URL. This points to the `${GITOPS}` repo you've set up at the very beginning. The Transmission agent on the device tries to clone that repo, check out the branch named after the ${DEVICE_ID} that uniquely identifies your device (here: 89b0...), and then roll the content of that branch into the running file system.
-
-If you have an instance of Red Hat Advanced Cluster Mangagement (ACM) running and accessible from your machine via `oc`, then you can clone your GitOps repo, checkout the "ostree-demo" branch and see under `/etc/microshift/manifests` manifests for installing the ACM `klusterlet` agent and a `kustomization.yaml` for applying these manifests. What's missing is adding the cluster's name and ACM credentials to the manifests.
-
-On the machine with ACM access, run:
-
-    demo_dir=$(pwd)
-    git clone "${GITOPS_REPO}" ostree-demo-config
-    cd ostree-demo-config
-    git checkout ostree-demo
-    demos/ostree-demo/register_cluster.sh "ostree-demo-cluster"
-    git checkout -b ${DEVICE_ID}
-    git push origin ${DEVICE_ID}
-
-A few moments later, you should see your MicroShift cluster registered with ACM, ready to deploy workloads.
