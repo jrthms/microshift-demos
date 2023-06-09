@@ -21,7 +21,7 @@ version = "*"
 
 [[packages]]
 name = "transmission-agent"
-version = "0.1.6"
+version = "*"
 
 [[packages]]
 name = "git"
