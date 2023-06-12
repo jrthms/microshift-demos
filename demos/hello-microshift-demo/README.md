@@ -4,7 +4,7 @@ This demo creates a minimal RHEL for Edge with MicroShift image and shows deploy
 
 ## Preparing the demo
 
-Follow the instructions for [building demo images on a RHEL machine](https://github.com/redhat-et/microshift-demos/tree/main/README.md), building the demo with `./scripts/build hello-microshift-demo`.
+Follow the instructions for [building demo images on a RHEL machine](https://github.com/jrthms/microshift-demos/tree/main/README.md), building the demo with `./scripts/build hello-microshift-demo`.
 
 ## Running the demo
 ### Installing the ISO and accessing the MicroShift cluster
