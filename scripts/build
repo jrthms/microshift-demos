@@ -218,7 +218,8 @@ if [ ! -f "${BUILDDIR}/${DEMONAME}-installer.$(uname -i).iso" ]; then
         echo "INFO: Using existing user password file ${PASSWORD_FILE}"
     else
         echo "INFO: Generating new user password file ${PASSWORD_FILE}"
-        head -c8 < <(< /dev/urandom tr -dc _A-Z-a-z-0-9) > "${PASSWORD_FILE}"
+#        head -c8 < <(< /dev/urandom tr -dc _A-Z-a-z-0-9) > "${PASSWORD_FILE}"
+         echo "redhat" > "${PASSWORD_FILE}"
     fi
     cat "${DEMODIR}/kickstart.ks.tmpl" | \
         OSTREE_REPO_URL=${OSTREE_SERVER_URL}/repo/ \
