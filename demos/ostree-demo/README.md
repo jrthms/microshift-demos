@@ -6,11 +6,8 @@ Note the demo is deliberately low-level, walking through how to build OS images 
 
 ## Preparing the demo
 
-Follow the instructions for [building demo images on a RHEL machine](https://github.com/jrthms/microshift-demos/tree/main/README.md) up to the point of having mirrored the repos, but do not build the `ostree-demo` artefacts yet.
+Follow the instructions for [building demo images on a RHEL machine](https://github.com/jrthms/microshift-demos/tree/main/README.md) up to the point of running the build script to build the `ostree-demo` artifacts.
 
-For this demo, you also need a GitHub repo from which you will configure the RHEL edge device running MicroShift via GitOps. Fork the demo's GitOps repo https://github.com/jrthms/microshift-config into your own org and define the GITOPS_REPO environment variable accordingly:
-
-    export GITOPS_REPO="https://github.com/MY_ORG/microshift-config"
 
 ## Running the demo
 
@@ -99,7 +96,7 @@ You can also check whether new updates are available, which is currently not the
 
 Next, assume the operations team updates the blueprint to add the `iotop` package (see [`demos/ostree-demo/blueprint_v0.0.2.toml`](https://github.com/jrthms/microshift-demos/tree/main/demos/ostree-demo/blueprint_v0.0.2.toml)), builds the updated ostree and publishes it.
 
-For simplicity, now run the build script to build the remaining artefacts. Once complete, note you have a new ostree-tarball `builds/ostree-demo/ostree-demo-0.0.2-container.tar`.
+For simplicity, now run the build script to build the remaining artifacts. Once complete, note you have a new ostree-tarball `builds/ostree-demo/ostree-demo-0.0.2-container.tar`.
 
 Now let's serve the updated ostree using Podman. On the _builder machine_ run:
 
