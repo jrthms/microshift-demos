@@ -6,7 +6,7 @@ Note the demo is deliberately low-level, walking through how to build OS images 
 
 ## Preparing the demo
 
-Follow the instructions for [building demo images on a RHEL machine](https://github.com/redhat-et/microshift-demos/tree/main/README.md) up to the point of having mirrored the repos, but do not build the `ostree-demo` artefacts yet.
+Follow the instructions for [building demo images on a RHEL machine](https://github.com/jrthms/microshift-demos/tree/main/README.md) up to the point of having mirrored the repos, but do not build the `ostree-demo` artefacts yet.
 
 For this demo, you also need a GitHub repo from which you will configure the RHEL edge device running MicroShift via GitOps. Fork the demo's GitOps repo https://github.com/jrthms/microshift-config into your own org and define the GITOPS_REPO environment variable accordingly:
 
@@ -16,7 +16,7 @@ For this demo, you also need a GitHub repo from which you will configure the RHE
 
 ### Creating a first blueprint, building&serving an ostree
 
-Have a look at [`demos/ostree-demo/blueprint_v0.0.1.toml`](https://github.com/redhat-et/microshift-demos/tree/main/demos/ostree-demo/blueprint_v0.0.1.toml), which defines a blueprint named `ostree-demo` that adds a few RPM packages for facilitating network troubleshooting to a base RHEL for Edge system, for example `arp`.
+Have a look at [`demos/ostree-demo/blueprint_v0.0.1.toml`](https://github.com/jrthms/microshift-demos/tree/main/demos/ostree-demo/blueprint_v0.0.1.toml), which defines a blueprint named `ostree-demo` that adds a few RPM packages for facilitating network troubleshooting to a base RHEL for Edge system, for example `arp`.
 
 In a terminal, use the `composer-cli` tool to list previously uploaded blueprints (you shouldn't have any initially):
 
@@ -97,7 +97,7 @@ You can also check whether new updates are available, which is currently not the
 
 ### Updating the blueprint, updating and rolling back the device
 
-Next, assume the operations team updates the blueprint to add the `iotop` package (see [`demos/ostree-demo/blueprint_v0.0.2.toml`](https://github.com/redhat-et/microshift-demos/tree/main/demos/ostree-demo/blueprint_v0.0.2.toml)), builds the updated ostree and publishes it.
+Next, assume the operations team updates the blueprint to add the `iotop` package (see [`demos/ostree-demo/blueprint_v0.0.2.toml`](https://github.com/jrthms/microshift-demos/tree/main/demos/ostree-demo/blueprint_v0.0.2.toml)), builds the updated ostree and publishes it.
 
 For simplicity, now run the build script to build the remaining artefacts. Once complete, note you have a new ostree-tarball `builds/ostree-demo/ostree-demo-0.0.2-container.tar`.
 
@@ -186,7 +186,7 @@ Watching the VM's console, you'll notice repeated attempts to boot into the upda
 
 ### Embedding and rolling out MicroShift
 
-Next, let's add MicroShift to the blueprint (see [`demos/ostree-demo/blueprint_v0.0.3.toml`](https://github.com/redhat-et/microshift-demos/tree/main/demos/ostree-demo/blueprint_v0.0.3.toml)) and "publish" the updated ostree repo.
+Next, let's add MicroShift to the blueprint (see [`demos/ostree-demo/blueprint_v0.0.3.toml`](https://github.com/jrthms/microshift-demos/tree/main/demos/ostree-demo/blueprint_v0.0.3.toml)) and "publish" the updated ostree repo.
 
 On the _host system_ run:
 
