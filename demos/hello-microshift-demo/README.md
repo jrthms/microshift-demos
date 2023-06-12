@@ -39,7 +39,7 @@ Now wait for MicroShift to be fully up-and-running. This may take a few minutes 
 
 Now let's deploy the "Hello, MicroShift!" application:
 
-    oc apply -k https://github.com/redhat-et/microshift-demos/apps/hello-microshift?ref=main
+    oc apply -k https://github.com/jrthms/microshift-demos/apps/hello-microshift?ref=main
 
 Verify that the application is deployed and the route is accepted:
 
